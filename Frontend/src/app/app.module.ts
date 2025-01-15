@@ -19,6 +19,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AuthInterceptor } from './utils/auth.interceptor';
 import { AddModalComponent } from './components/add-modal/add-modal.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,8 @@ import { AddModalComponent } from './components/add-modal/add-modal.component';
     MatProgressSpinnerModule,
     FormsModule,
     MatDialogModule,
+    MatSidenavModule,
+    MatListModule,
   ],
   providers: [
     provideAnimationsAsync(),

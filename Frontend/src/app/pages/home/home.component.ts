@@ -44,9 +44,7 @@ export class HomeComponent implements OnInit {
         this.isLoadingZones = false;
       },
       error: (error) => {
-        this.notificationService.errorMessage(
-          'Errore nel caricamento delle zone'
-        );
+        console.log('Errore nel caricamento delle zone');
         this.isLoadingZones = false;
       },
     });
@@ -63,9 +61,7 @@ export class HomeComponent implements OnInit {
           this.isLoadingPlaces = false;
         },
         error: (error) => {
-          this.notificationService.errorMessage(
-            'Errore nel caricamento dei luoghi'
-          );
+          console.log('Errore nel caricamento dei luoghi');
           this.isLoadingPlaces = false;
         },
       });
