@@ -1,0 +1,183 @@
+@if(isLoading) {
+<app-loader></app-loader>
+}
+
+<div class="registration-container">
+  <div class="registration-card">
+    <div class="login-content">
+      <!-- Lato sinistro - Illustrazione -->
+      <div class="illustration-section">
+        <div class="logo">
+          <img src="assets/logo-large.jpg" alt="Logo Ocula" />
+        </div>
+        <div class="illustration">
+          <img
+            src="https://assets.anantara.com/image/upload/q_auto,f_auto,c_limit,w_1045/media/minor/anantara/images/anantara-kihavah-maldives-villas/accommodation/details-page/sunset-over-water-pool-villa/new_aug_2023/teaser_image_gallery_880x600/3a_anantara_kihavah_sunset_over_water_pool_villa_aerial_880x600px.jpg"
+            alt="Illustrazione Login"
+          />
+        </div>
+      </div>
+
+      <!-- Lato destro - Form -->
+      <div class="form-section">
+        <div class="form-header">
+          <span class="register-label">CREA UN ACCOUNT</span>
+          <h1>Crea un account</h1>
+          <p class="sign-in-text">
+            Hai già un account? <a href="/login">Accedi</a>
+          </p>
+        </div>
+
+        <form
+          class="signup-form"
+          [formGroup]="registerForm"
+          (ngSubmit)="register()"
+        >
+          <div class="form-grid">
+            <!-- Colonna sinistra -->
+            <div class="form-column">
+              <div class="form-group">
+                <label for="first-name">Nome</label>
+                <input
+                  type="text"
+                  id="first-name"
+                  placeholder="Nome"
+                  formControlName="firstName"
+                />
+                @if (registerForm.get('firstName')?.hasError('required') &&
+                registerForm.get('firstName')?.touched) {
+                <div class="error-message">Il nome è obbligatorio</div>
+                }
+              </div>
+
+              <div class="form-group">
+                <label for="last-name">Cognome</label>
+                <input
+                  type="text"
+                  id="last-name"
+                  placeholder="Cognome"
+                  formControlName="lastName"
+                />
+                @if (registerForm.get('lastName')?.hasError('required') &&
+                registerForm.get('lastName')?.touched) {
+                <div class="error-message">Il cognome è obbligatorio</div>
+                }
+              </div>
+
+              <div class="form-group">
+                <label for="email">E-Mail</label>
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="Email"
+                  formControlName="username"
+                />
+                @if (registerForm.get('username')?.invalid &&
+                registerForm.get('username')?.touched) {
+                <div class="error-message">
+                  Per favore inserisci una email valida.
+                </div>
+                }
+              </div>
+            </div>
+
+            <!-- Colonna destra -->
+            <div class="form-column">
+              <div class="form-group">
+                <label for="image">Immagine</label>
+                <input
+                  type="text"
+                  id="image"
+                  placeholder="URL immagine del profilo"
+                  formControlName="picture"
+                />
+                @if (registerForm.get('picture')?.hasError('required') &&
+                registerForm.get('picture')?.touched) {
+                <div class="error-message">L'immagine è obbligatoria</div>
+                } @else if (registerForm.get('picture')?.errors?.['invalidUrl'])
+                {
+                <div class="error-message">
+                  Per favore inserisci un URL valido
+                </div>
+                }
+              </div>
+
+              <div class="form-group">
+                <div class="input-container">
+                  <label for="password">Password</label>
+                  <input
+                    [type]="hide ? 'password' : 'text'"
+                    id="password"
+                    placeholder="Password"
+                    formControlName="password"
+                  />
+                  <button
+                    type="button"
+                    class="input-icon"
+                    (click)="hide = !hide"
+                  >
+                    <mat-icon>{{
+                      hide ? "visibility_off" : "visibility"
+                    }}</mat-icon>
+                  </button>
+                </div>
+                @if (registerForm.get('password')?.errors?.['weakPassword']) {
+                <div class="error-message">La password è troppo debole</div>
+                }
+              </div>
+
+              <div class="form-group">
+                <div class="input-container">
+                  <label for="confirm-password">Conferma Password</label>
+                  <input
+                    [type]="hide ? 'password' : 'text'"
+                    id="confirm-password"
+                    placeholder="Conferma Password"
+                    formControlName="confirmPassword"
+                  />
+                  <button
+                    type="button"
+                    class="input-icon"
+                    (click)="hide = !hide"
+                  >
+                    <mat-icon>{{
+                      hide ? "visibility_off" : "visibility"
+                    }}</mat-icon>
+                  </button>
+                </div>
+                <div
+                  *ngIf="
+                    registerForm.get('confirmPassword')?.errors &&
+                    (registerForm.get('confirmPassword')?.touched ||
+                      registerForm.get('confirmPassword')?.dirty)
+                  "
+                  class="error-message"
+                >
+                  <div
+                    *ngIf="registerForm.get('confirmPassword')?.errors?.['passwordMismatch']"
+                  >
+                    Le password non corrispondono
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="signup-button"
+            [disabled]="registerForm.invalid"
+          >
+            Registrati
+          </button>
+
+          <p class="privacy-notice">
+            Cliccando sul pulsante Registrati, accetti la nostra Privacy Policy.
+            <br />
+            Leggi di più sulla nostra privacy <a>qui</a>.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,6 +2,7 @@ import { get } from 'mongoose';
 import { Zone } from './zones.entity';
 import { ZoneModel } from './zones.model';
 import { PlaceModel } from '../places/places.model';
+
 const getAllZones = async () => {
   return ZoneModel.find().populate('Agent');
 };

@@ -1,0 +1,75 @@
+@if(isLoading) {
+<app-loader></app-loader>
+}
+
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-content">
+      <!-- Lato destro - Illustrazione -->
+      <div class="illustration-section">
+        <div class="logo">
+          <img src="assets/logo-large.jpg" alt="Logo Ocula" />
+        </div>
+        <div class="illustration">
+          <img
+            src="https://assets.anantara.com/image/upload/q_auto,f_auto,c_limit,w_1045/media/minor/anantara/images/anantara-kihavah-maldives-villas/accommodation/details-page/sunset-over-water-pool-villa/new_aug_2023/teaser_image_gallery_880x600/3a_anantara_kihavah_sunset_over_water_pool_villa_aerial_880x600px.jpg"
+            alt="Illustrazione Login"
+          />
+        </div>
+      </div>
+
+      <!-- Lato sinistro - Form -->
+      <div class="form-section">
+        <div class="form-header">
+          <span class="register-label">INIZIA IL TUO VIAGGIO</span>
+          <h1>Accedi</h1>
+          <p class="sign-in-text">
+            Non hai un account? <a href="/register">Registrati</a>
+          </p>
+        </div>
+
+        <form class="signup-form" [formGroup]="loginForm" (ngSubmit)="login()">
+          <div class="form-group">
+            <label for="username">Email</label>
+            <div class="input-container">
+              <input
+                type="email"
+                id="username"
+                formControlName="username"
+                placeholder="Email"
+              />
+              <button type="button" disabled class="input-icon">
+                <mat-icon>mail_outline</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-container">
+              <input
+                [type]="hide ? 'password' : 'text'"
+                id="password"
+                formControlName="password"
+                placeholder="Password"
+              />
+              <button type="button" class="input-icon" (click)="hide = !hide">
+                <mat-icon>{{
+                  hide ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="signup-button">ACCEDI</button>
+
+          <p class="privacy-notice">
+            Cliccando sul pulsante Accedi, accetti la nostra Privacy Policy.
+            <br />
+            Per maggiori informazioni, leggi la nostra privacy <a>qui</a>.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
