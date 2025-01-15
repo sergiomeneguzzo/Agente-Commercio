@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit, OnDestroy {
               );
             } else {
               this.isLoading = false;
-              this.notify.errorMessage('Invalid or incorrect credentials');
+              this.notify.errorMessage('Credenziali errate o invalide');
             }
             return throwError(() => err);
           })

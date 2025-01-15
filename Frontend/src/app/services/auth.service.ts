@@ -21,10 +21,10 @@ export class AuthService {
     private jwtSrv: JwtService,
     private http: HttpClient,
     private router: Router,
-    private sessionService: SessionService
+    private authEventService: SessionService
   ) {
     this.fetchUser();
-    this.sessionService.logout$.subscribe(() => this.handleLogout());
+    this.authEventService.logout$.subscribe(() => this.handleLogout());
   }
 
   isLoggedIn() {

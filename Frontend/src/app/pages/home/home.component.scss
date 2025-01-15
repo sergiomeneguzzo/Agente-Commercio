@@ -1,0 +1,193 @@
+@import "../../../styles.scss";
+
+// Mixins per breakpoints
+@mixin mobile {
+  @media (max-width: 599px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: 600px) and (max-width: 959px) {
+    @content;
+  }
+}
+
+.home-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7ff 0%, #c3e0ff 100%);
+  padding: 2rem;
+
+  @include mobile {
+    padding: 1rem;
+  }
+}
+
+.content-card {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 16px !important;
+
+  @include mobile {
+    padding: 1rem;
+  }
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .back-button {
+    color: $primary-color;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin: 0;
+    color: #333;
+    font-weight: 500;
+
+    @include mobile {
+      font-size: 1.75rem;
+    }
+  }
+
+  .subtitle {
+    color: #666;
+    margin: 0.5rem 0 0;
+    font-size: 1rem;
+
+    @include mobile {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.search-field {
+  width: 100%;
+  margin-bottom: 1.5rem;
+
+  @include mobile {
+    margin-bottom: 1rem;
+  }
+}
+
+.zones-container,
+.places-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.zone-card,
+.place-card {
+  padding: 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  position: relative;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  @include mobile {
+    padding: 1rem;
+  }
+}
+
+.zone-card {
+  .arrow-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $primary-color;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+  }
+
+  &:hover .arrow-icon {
+    opacity: 1;
+  }
+}
+
+.zone-header,
+.place-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  .zone-icon,
+  .place-icon {
+    color: $primary-color;
+    margin-right: 0.75rem;
+  }
+
+  .zone-cap,
+  .place-name {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #333;
+  }
+}
+
+.zone-details,
+.place-details {
+  .detail-row {
+    display: flex;
+    margin-bottom: 0.5rem;
+
+    .label {
+      color: #666;
+      min-width: 100px;
+    }
+
+    .value {
+      color: #333;
+      font-weight: 500;
+    }
+  }
+}
+
+.spinner {
+  margin: 2rem auto;
+}
+
+.no-results {
+  text-align: center;
+  grid-column: 1 / -1;
+  padding: 2rem;
+  color: #666;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+}
+
+::ng-deep {
+  .mat-mdc-form-field-outline {
+    background-color: #ffffff;
+  }
+
+  .mat-mdc-card {
+    --mdc-elevated-card-container-color: #ffffff;
+  }
+}

@@ -1,1 +1,115 @@
-<p>home works!</p>
+<div class="home-container">
+  <mat-card class="content-card">
+    <mat-card-header>
+      <mat-card-title>
+        <div class="header-container">
+          <button
+            mat-icon-button
+            *ngIf="selectedZone"
+            (click)="backToZones()"
+            class="back-button"
+          >
+            <mat-icon>arrow_back</mat-icon>
+          </button>
+          <div>
+            <h1>{{ selectedZone ? "Luoghi nella Zona" : "Zone di Lavoro" }}</h1>
+            <p class="subtitle">
+              {{
+                selectedZone
+                  ? "CAP: " + selectedZone.Cap
+                  : "Seleziona una zona per vedere i luoghi"
+              }}
+            </p>
+          </div>
+        </div>
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- Ricerca (visibile solo nella lista zone) -->
+      <mat-form-field
+        *ngIf="!selectedZone"
+        appearance="outline"
+        class="search-field"
+      >
+        <mat-label>Cerca zona</mat-label>
+        <input
+          matInput
+          placeholder="Cerca per CAP o agente"
+          [(ngModel)]="searchTerm"
+          (input)="filterZones($event)"
+        />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+      <!-- Lista Zone -->
+      <div *ngIf="!selectedZone" class="zones-container">
+        <mat-spinner
+          *ngIf="isLoadingZones"
+          diameter="40"
+          class="spinner"
+        ></mat-spinner>
+
+        <mat-card
+          *ngFor="let zone of filteredZones"
+          class="zone-card"
+          (click)="selectZone(zone)"
+        >
+          <div class="zone-header">
+            <mat-icon class="zone-icon">location_city</mat-icon>
+            <h3 class="zone-cap">CAP: {{ zone.Cap }}</h3>
+          </div>
+
+          <div class="zone-details">
+            <div class="detail-row">
+              <span class="label">Agente:</span>
+              <span class="value">{{ getAgentInfo(zone.Agent) }}</span>
+            </div>
+          </div>
+
+          <mat-icon class="arrow-icon">arrow_forward</mat-icon>
+        </mat-card>
+
+        <div
+          *ngIf="!isLoadingZones && filteredZones.length === 0"
+          class="no-results"
+        >
+          <mat-icon>search_off</mat-icon>
+          <p>Nessuna zona trovata</p>
+        </div>
+      </div>
+
+      <!-- Lista Places per Zona selezionata -->
+      <div *ngIf="selectedZone" class="places-container">
+        <mat-spinner
+          *ngIf="isLoadingPlaces"
+          diameter="40"
+          class="spinner"
+        ></mat-spinner>
+
+        <mat-card *ngFor="let place of places" class="place-card">
+          <div class="place-header">
+            <mat-icon class="place-icon">location_on</mat-icon>
+            <h3 class="place-name">{{ place.placeName }}</h3>
+          </div>
+
+          <div class="place-details">
+            <div class="detail-row">
+              <span class="label">Latitudine:</span>
+              <span class="value">{{ place.latitude }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="label">Longitudine:</span>
+              <span class="value">{{ place.longitude }}</span>
+            </div>
+          </div>
+        </mat-card>
+
+        <div *ngIf="!isLoadingPlaces && places.length === 0" class="no-results">
+          <mat-icon>location_off</mat-icon>
+          <p>Nessun luogo trovato in questa zona</p>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

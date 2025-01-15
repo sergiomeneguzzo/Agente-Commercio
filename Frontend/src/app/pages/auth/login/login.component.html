@@ -1,75 +1,70 @@
-@if(isLoading) {
-<app-loader></app-loader>
-}
-
 <div class="login-container">
-  <div class="login-card">
-    <div class="login-content">
-      <!-- Lato destro - Illustrazione -->
-      <div class="illustration-section">
-        <div class="logo">
-          <img src="assets/logo-large.jpg" alt="Logo Ocula" />
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>
+        <h1>Benvenuto</h1>
+        <p class="subtitle">Accedi al tuo account</p>
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="login()" autocomplete="off">
+        <div class="form-container">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Username</mat-label>
+            <input
+              matInput
+              formControlName="username"
+              placeholder="Inserisci username"
+              required
+              autocomplete="username"
+            />
+            <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+              Username è obbligatorio
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              formControlName="password"
+              placeholder="Inserisci password"
+              required
+              autocomplete="current-password"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Nascondi password'"
+              type="button"
+            >
+              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+            </button>
+            <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+              Password è obbligatoria
+            </mat-error>
+          </mat-form-field>
+
+          <button
+            mat-flat-button
+            color="primary"
+            class="login-button"
+            type="submit"
+          >
+            <mat-spinner diameter="20" *ngIf="isLoading" class="spinner">
+            </mat-spinner>
+            <span *ngIf="!isLoading">Accedi</span>
+          </button>
         </div>
-        <div class="illustration">
-          <img
-            src="https://assets.anantara.com/image/upload/q_auto,f_auto,c_limit,w_1045/media/minor/anantara/images/anantara-kihavah-maldives-villas/accommodation/details-page/sunset-over-water-pool-villa/new_aug_2023/teaser_image_gallery_880x600/3a_anantara_kihavah_sunset_over_water_pool_villa_aerial_880x600px.jpg"
-            alt="Illustrazione Login"
-          />
+
+        <div class="login-link">
+          Non hai un account?
+          <a routerLink="/register">Registrati</a>
         </div>
-      </div>
-
-      <!-- Lato sinistro - Form -->
-      <div class="form-section">
-        <div class="form-header">
-          <span class="register-label">INIZIA IL TUO VIAGGIO</span>
-          <h1>Accedi</h1>
-          <p class="sign-in-text">
-            Non hai un account? <a href="/register">Registrati</a>
-          </p>
-        </div>
-
-        <form class="signup-form" [formGroup]="loginForm" (ngSubmit)="login()">
-          <div class="form-group">
-            <label for="username">Email</label>
-            <div class="input-container">
-              <input
-                type="email"
-                id="username"
-                formControlName="username"
-                placeholder="Email"
-              />
-              <button type="button" disabled class="input-icon">
-                <mat-icon>mail_outline</mat-icon>
-              </button>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="password">Password</label>
-            <div class="input-container">
-              <input
-                [type]="hide ? 'password' : 'text'"
-                id="password"
-                formControlName="password"
-                placeholder="Password"
-              />
-              <button type="button" class="input-icon" (click)="hide = !hide">
-                <mat-icon>{{
-                  hide ? "visibility_off" : "visibility"
-                }}</mat-icon>
-              </button>
-            </div>
-          </div>
-
-          <button type="submit" class="signup-button">ACCEDI</button>
-
-          <p class="privacy-notice">
-            Cliccando sul pulsante Accedi, accetti la nostra Privacy Policy.
-            <br />
-            Per maggiori informazioni, leggi la nostra privacy <a>qui</a>.
-          </p>
-        </form>
-      </div>
-    </div>
-  </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>
