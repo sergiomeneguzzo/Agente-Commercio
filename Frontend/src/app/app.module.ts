@@ -16,7 +16,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
 import { AuthInterceptor } from './utils/auth.interceptor';
+import { AddModalComponent } from './components/add-modal/add-modal.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { AuthInterceptor } from './utils/auth.interceptor';
     RegisterComponent,
     HomeComponent,
     LoaderComponent,
+    AddModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,7 @@ import { AuthInterceptor } from './utils/auth.interceptor';
     MatInputModule,
     MatProgressSpinnerModule,
     FormsModule,
+    MatDialogModule,
   ],
   providers: [
     provideAnimationsAsync(),

@@ -12,7 +12,13 @@
             <mat-icon>arrow_back</mat-icon>
           </button>
           <div>
-            <h1>{{ selectedZone ? "Luoghi nella Zona" : "Zone di Lavoro" }}</h1>
+            <h1>
+              {{
+                selectedZone
+                  ? "Luoghi nella Zona"
+                  : "Zone di Lavoro Agente di Commercio"
+              }}
+            </h1>
             <p class="subtitle">
               {{
                 selectedZone
@@ -87,7 +93,11 @@
           class="spinner"
         ></mat-spinner>
 
-        <mat-card *ngFor="let place of places" class="place-card">
+        <mat-card
+          *ngFor="let place of places"
+          class="place-card"
+          (click)="openGoogleMaps(place.latitude, place.longitude)"
+        >
           <div class="place-header">
             <mat-icon class="place-icon">location_on</mat-icon>
             <h3 class="place-name">{{ place.placeName }}</h3>
@@ -112,4 +122,8 @@
       </div>
     </mat-card-content>
   </mat-card>
+
+  <button class="add-zone-button" mat-icon-button (click)="openModal()">
+    <mat-icon>add</mat-icon>
+  </button>
 </div>

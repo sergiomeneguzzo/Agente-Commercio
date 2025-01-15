@@ -9,14 +9,17 @@ import { Zone } from '../interfaces/zone';
   providedIn: 'root',
 })
 export class ZonesService {
-  apiUrl: any;
   constructor(private http: HttpClient) {}
 
   getZones(): Observable<Zone[]> {
-    return this.http.get<Zone[]>(`${this.apiUrl}/zones`);
+    return this.http.get<Zone[]>(`${apiUrl}/zones`);
   }
 
   getPlacesByZone(zoneId: string): Observable<Place[]> {
-    return this.http.get<Place[]>(`${this.apiUrl}/placesbyZone/${zoneId}`);
+    return this.http.get<Place[]>(`${apiUrl}/places/placesbyZone/${zoneId}`);
+  }
+
+  addZone(zone: { Agent: string; Cap: string }): Observable<any> {
+    return this.http.post(`${apiUrl}/zones`, zone);
   }
 }

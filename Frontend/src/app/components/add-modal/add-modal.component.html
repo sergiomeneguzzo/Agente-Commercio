@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Aggiungi una nuova zona</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>CAP</mat-label>
+    <input matInput [(ngModel)]="cap" placeholder="Inserisci il CAP" />
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="close()">Annulla</button>
+  <button mat-button color="primary" (click)="addZone()">Aggiungi</button>
+</mat-dialog-actions>

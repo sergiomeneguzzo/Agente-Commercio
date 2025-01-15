@@ -134,12 +134,10 @@ export const deleteZone = async (
       (error as Error).message ===
       'Cannot delete zone. There are places associated with this zone.'
     ) {
-      res
-        .status(400)
-        .json({
-          message:
-            'Cannot delete zone. There are places associated with this zone.',
-        });
+      res.status(400).json({
+        message:
+          'Cannot delete zone. There are places associated with this zone.',
+      });
     } else {
       next(error);
     }

@@ -4,6 +4,8 @@ import { ZonesService } from '../../services/zones.service';
 import { Place } from '../../interfaces/place';
 import { Zone } from '../../interfaces/zone';
 import { NotificationService } from '../../services/notification.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AddModalComponent } from '../../components/add-modal/add-modal.component';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +13,7 @@ import { NotificationService } from '../../services/notification.service';
   styleUrls: ['./home.component.scss'],
   standalone: false,
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   zones: Zone[] = [];
   places: Place[] = [];
   selectedZone: Zone | null = null;
@@ -24,36 +26,30 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private placeService: ZonesService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.loadZones();
   }
 
-  ngOnDestroy(): void {
-    this.destroyed$.next();
-    this.destroyed$.complete();
-  }
-
   loadZones(): void {
     this.isLoadingZones = true;
-    this.placeService
-      .getZones()
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe({
-        next: (zones) => {
-          this.zones = zones;
-          this.filteredZones = zones;
-          this.isLoadingZones = false;
-        },
-        error: (error) => {
-          this.notificationService.errorMessage(
-            'Errore nel caricamento delle zone'
-          );
-          this.isLoadingZones = false;
-        },
-      });
+    this.placeService.getZones().subscribe({
+      next: (zones) => {
+        console.log('Zones loaded:', zones);
+        this.zones = zones;
+        this.filteredZones = zones;
+        this.isLoadingZones = false;
+      },
+      error: (error) => {
+        this.notificationService.errorMessage(
+          'Errore nel caricamento delle zone'
+        );
+        this.isLoadingZones = false;
+      },
+    });
   }
 
   loadPlacesByZone(zoneId: string): void {
@@ -100,5 +96,24 @@ export class HomeComponent implements OnInit, OnDestroy {
   getAgentInfo(agent: string | any): string {
     if (typeof agent === 'string') return agent;
     return agent.username || 'N/A';
+  }
+
+  openGoogleMaps(latitude: string | number, longitude: string | number): void {
+    const lat = typeof latitude === 'string' ? parseFloat(latitude) : latitude;
+    const lng =
+      typeof longitude === 'string' ? parseFloat(longitude) : longitude;
+
+    if (!isNaN(lat) && !isNaN(lng)) {
+      const url = `https://www.google.com/maps?q=${lat},${lng}`;
+      window.open(url, '_blank');
+    } else {
+      console.error('Invalid coordinates:', { latitude, longitude });
+    }
+  }
+
+  openModal(): void {
+    this.dialog.open(AddModalComponent, {
+      width: '400px',
+    });
   }
 }

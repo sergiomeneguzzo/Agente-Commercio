@@ -82,7 +82,7 @@
   gap: 1.5rem;
 
   @include mobile {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Per dispositivi mobili, visualizza una sola colonna */
     gap: 1rem;
   }
 }
@@ -93,14 +93,17 @@
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
   position: relative;
+  background-color: white; /* Aggiungi colore di sfondo per le carte */
+  border-radius: 8px; /* Rendi le carte con angoli arrotondati */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   }
 
   @include mobile {
-    padding: 1rem;
+    padding: 1rem; /* Riduci il padding per dispositivi mobili */
   }
 }
 
@@ -190,4 +193,24 @@
   .mat-mdc-card {
     --mdc-elevated-card-container-color: #ffffff;
   }
+}
+
+.add-zone-button {
+  background-color: #c3e0ff;
+  color: white;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999 !important;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.add-zone-button mat-icon {
+  font-size: 25px;
 }
