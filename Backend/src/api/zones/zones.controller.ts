@@ -78,6 +78,30 @@ export const createZone = async (
   }
 };
 
+export const getCapsByUser = async (
+  req: Request<{}, {}, { userId: string }>,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { userId } = req.body;
+
+    if (!userId) {
+      res.status(400).json({ message: 'UserId is required.' });
+    }
+
+    const caps = await zoneService.getCapsByUser(userId);
+
+    if (!caps.length) {
+      res.status(404).json({ message: 'No CAPs found for this user.' });
+    }
+
+    res.json(caps);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const updateZone = async (
   req: Request<{ id: string }, {}, UpdateZoneDTO>,
   res: Response,
@@ -100,12 +124,24 @@ export const deleteZone = async (
   next: NextFunction,
 ) => {
   try {
-    const deleted = await zoneService.deleteZone(req.params.id);
-    if (!deleted) {
-      res.status(404).json({ message: 'Zone not found' });
-    }
+    const zoneId = req.params.id;
+
+    await zoneService.deleteZone(zoneId);
+
     res.status(204).send();
   } catch (error) {
-    next(error);
+    if (
+      (error as Error).message ===
+      'Cannot delete zone. There are places associated with this zone.'
+    ) {
+      res
+        .status(400)
+        .json({
+          message:
+            'Cannot delete zone. There are places associated with this zone.',
+        });
+    } else {
+      next(error);
+    }
   }
 };
