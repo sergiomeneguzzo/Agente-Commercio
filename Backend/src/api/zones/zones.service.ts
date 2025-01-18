@@ -7,6 +7,10 @@ const getAllZones = async () => {
   return ZoneModel.find().populate('Agent');
 };
 
+const getZonesByUser = async (userId: string) => {
+  return ZoneModel.find({ Agent: userId }).populate('Agent');
+};
+
 const getZoneById = async (id: string) => {
   return ZoneModel.findById(id).populate('Agent');
 };
@@ -47,4 +51,5 @@ export default {
   deleteZone,
   zoneExists,
   getCapsByUser,
+  getZonesByUser,
 };

@@ -10,7 +10,11 @@ export const getZones = async (
   next: NextFunction,
 ) => {
   try {
-    const zones = await zoneService.getAllZones();
+    const userId = req.user?.id;
+    if (!userId) {
+      res.status(401).json({ message: 'Unauthorized' });
+    }
+    const zones = await zoneService.getZonesByUser(userId!);
     res.json(zones);
   } catch (error) {
     next(error);
