@@ -21,6 +21,7 @@ import { AuthInterceptor } from './utils/auth.interceptor';
 import { AddModalComponent } from './components/add-modal/add-modal.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { MatListModule } from '@angular/material/list';
     HomeComponent,
     LoaderComponent,
     AddModalComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
